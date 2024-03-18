@@ -1,0 +1,88 @@
+.container {
+    text-align: center;
+}
+
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+#content {
+    float: left;
+    width: 60%;
+}
+
+p.date {
+    color: #ccc;
+    font-family: georgia, serif;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.pagination {
+    margin: 40px 0;
+    font-weight: bold;
+}
+
+input[type=submit] {
+    font-weight: bold;
+    background: #00abff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.errorlist {
+    color: #cc0033;
+    float: left;
+    clear: both;
+    padding-left: 10px;
+}
+
+.comment {
+    padding: 10px;
+}
+
+.comment:nth-child(even) {
+    background: #efefef;
+}
+
+.comment .info {
+    font-weight: bold;
+    font-size: 12px;
+    color: #666;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+.comment,
+p.date {
+    color: #fff;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    border-bottom: 1px solid black;
+    justify-content: center;
+}
+
+header nav ul li {
+    display: inline-block;
+}
+
+header nav ul li a {
+    color: white;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+

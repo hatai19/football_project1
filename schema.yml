@@ -1,0 +1,336 @@
+openapi: 3.0.3
+info:
+  title: Match API Project
+  version: 1.0.0
+  description: A sample blog to learn about DRF
+paths:
+  /api/:
+    get:
+      operationId: api_list
+      parameters:
+      - in: query
+        name: place
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+          description: ''
+    post:
+      operationId: api_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Match'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Match'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Match'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+          description: ''
+  /api/{match_id}/comment/:
+    post:
+      operationId: api_comment_create
+      parameters:
+      - in: path
+        name: match_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/{match_id}/join/:
+    post:
+      operationId: api_join_create
+      parameters:
+      - in: path
+        name: match_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/{id}/:
+    get:
+      operationId: api_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+          description: ''
+    put:
+      operationId: api_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Match'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Match'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Match'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+          description: ''
+    patch:
+      operationId: api_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMatch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMatch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMatch'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+          description: ''
+    delete:
+      operationId: api_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/past-matches/:
+    get:
+      operationId: api_past_matches_list
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+          description: ''
+  /api/profiles/:
+    get:
+      operationId: api_profiles_list
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Profile'
+          description: ''
+components:
+  schemas:
+    Comment:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        body:
+          type: string
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - body
+      - created
+      - name
+    Match:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 250
+        place:
+          type: string
+          maxLength: 250
+        date:
+          type: string
+          format: date-time
+        price:
+          type: string
+          maxLength: 250
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+          readOnly: true
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+          readOnly: true
+      required:
+      - comments
+      - date
+      - id
+      - place
+      - players
+      - price
+      - title
+    PatchedMatch:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 250
+        place:
+          type: string
+          maxLength: 250
+        date:
+          type: string
+          format: date-time
+        price:
+          type: string
+          maxLength: 250
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+          readOnly: true
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+          readOnly: true
+    Profile:
+      type: object
+      properties:
+        user_first_name:
+          type: string
+          readOnly: true
+        user_last_name:
+          type: string
+          readOnly: true
+        goals:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - user_first_name
+      - user_last_name
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

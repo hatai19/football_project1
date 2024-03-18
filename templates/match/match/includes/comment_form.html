@@ -1,0 +1,6 @@
+<h2>Add a new comment</h2>
+<form action="{% url "match:match_comment" match.id %}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Add comment"></p>
+</form>

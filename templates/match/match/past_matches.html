@@ -1,0 +1,40 @@
+{% extends "match/base.html" %}
+{% block title %}Прошедшие матчи{% endblock %}
+{% block content %}
+    <style>
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .match-box {
+            padding: 10px;
+            border: 4px solid green;
+            overflow: hidden;
+        }
+
+        main {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+    <h1>Прошедшие матчи</h1>
+    <main class="match-grid">
+        {% for match in matches %}
+            <main class="match-box">
+                <h2><a href="{% url 'match:match_detail' match.id %}">{{ match.title }}</a></h2>
+                <p>{{ match.place|linebreaks }}</p>
+                <p>{{ match.price|linebreaks }}</p>
+            </main>
+        {% endfor %}
+    </main>
+{% endblock %}

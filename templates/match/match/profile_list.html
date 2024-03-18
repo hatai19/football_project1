@@ -1,0 +1,67 @@
+{% extends "match/base.html" %}
+{% block title %}Список игроков{% endblock %}
+{% block content %}
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #fff;
+  }
+
+  th, td {
+    padding: 12px 20px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+
+  th {
+    background-color: #000;
+  }
+
+  td {
+    background-color: #111;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #222;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #004d00;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<main class="container">
+  <h1>Лучшие бомбардиры</h1>
+
+  <table>
+    <tr>
+      <th>Место</th>
+      <th>Имя игрока</th>
+      <th>Количество голов</th>
+    </tr>
+    {% for profile in profiles %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ profile.user }}</td>
+      <td>{{ profile.goals }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</main>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "match/base.html" %}
+{% block title %}{{ match.title }}{% endblock %}
+{% block content %}
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: #fff;
+            margin: 0 auto;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+        th {
+            background-color: #000;
+        }
+
+        td {
+            background-color: #111;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #222;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .detail {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #004d00;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+  <h1>{{ match.title }}</h1>
+  <main class="detail">
+    <p>Зарегистрированные игроки:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Фамилия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for player in match.players.all %}
+        <tr>
+          <td>{{ player.user.first_name }}</td>
+          <td>{{ player.user.last_name }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">Нет игроков</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <button type="button" class="btn btn-primary" onclick="location.href='{% url 'match:join_match' match.id %}'">
+    Принять участие
+  </button>
+
+    {% with comments.count as total_comments %}
+        <h2>
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h2>
+    {% endwith %}
+    {% for comment in comments %}
+        <div class="comment">
+            <p class="info">
+                Comment {{ forloop.counter }} by {{ comment.name }}
+                {{ comment.created }}
+            </p>
+            {{ comment.body|linebreaks }}
+        </div>
+    {% empty %}
+        <p>There are no comments.</p>
+    {% endfor %}
+    {% include "match/match/includes/comment_form.html" %}
+{% endblock %}

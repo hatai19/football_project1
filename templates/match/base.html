@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/match.css' %}" rel="stylesheet">
+    <header>
+        {% include "match/header.html" %}
+    </header>
+</head>
+<body>
+    <main class="container">
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "match/base.html" %}
+{% block title %}Предстоящие матчи{% endblock %}
+{% block content %}
+    <style>
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .match-box {
+            padding: 10px;
+            border: 3px solid green;
+        }
+
+        main {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+    </style>
+    <main>
+        <main>
+            <h1>Предстоящие матчи</h1>
+        </main>
+        <main class="match-grid">
+            {% for match in matches %}
+                <main class="match-box">
+                    <h2>
+                        <a href="{% url 'match:match_detail' match.id %}"> {{ match.title }}</a>
+                    </h2>
+                    <p>
+                        {{ match.place|linebreaks }}
+                    </p>
+                    <p>
+                        {{ match.price|linebreaks }}
+                    </p>
+                </main>
+                {% if forloop.counter|divisibleby:3 and not forloop.last %}
+        </main>
+                {% endif %}
+            {% endfor %}
+    </main>
+{% endblock %}

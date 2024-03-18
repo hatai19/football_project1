@@ -1,0 +1,18 @@
+
+<header>
+  <nav>
+    <ul>
+      <li><a href="{% url 'match:match_list' %}">Предстоящие матчи</a></li>
+      <li><a href="{% url 'users-profile' %}">Мой профиль</a></li>
+      <li><a href="{% url 'match:past_matches' %}">Прошедшие матчи</a></li>
+      <li><a href="{% url 'match:profile_list' %}">Игроки</a></li>
+      {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'logout' %}" onclick="return confirm('Вы уверены, что хотите выйти?')">Выйти</a>
+      </li>
+      {% else %}
+      <li><a href="{% url 'login' %}">Войти</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
